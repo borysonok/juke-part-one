@@ -4,15 +4,15 @@
   "description": "A generated project at Fullstack Academy",
   "main": "server/main.js",
   "scripts": {
-    "start": "node server/main.js",
     "test": "./node_modules/.bin/mocha server/**/*.test.js --reporter spec",
     "test:player": "node_modules/.bin/testem",
     "seed": "node ./bin/seed",
     "db-init": "pg-init juke",
-    "postinstall": "npm run db-init"
+    "postinstall": "npm run db-init",
+    "start": "webpack -w & node server/main.js"
   },
   "dependencies": {
-    "axios": "^0.15.2",
+    "axios": "^0.15.3",
     "babel-polyfill": "^6.26.0",
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.12.0",
