@@ -13,6 +13,7 @@ export default class Main extends Component {
       selectedAlbum: {}
     };
     this.handleClick = this.handleClick.bind(this);
+    this.resetAlbums = this.resetAlbums.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +21,10 @@ export default class Main extends Component {
       .get("api/albums")
       .then(res => res.data)
       .then(_albums => this.setState({ albums: _albums }));
+  }
+
+  resetAlbums() {
+    this.setState({ selectedAlbum: {} });
   }
 
   handleClick(albumId) {
@@ -36,15 +41,20 @@ export default class Main extends Component {
     return (
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
-          <Sidebar />
+          <Sidebar reset={this.resetAlbums} />
         </div>
+
         <div className="col-xs-10">
-          <AllAlbums
-            albums={this.state.albums}
-            toSelectAlbum={this.handleClick}
-          />
-          <SingleAlbum album={this.state.selectedAlbum} />
+          {this.state.selectedAlbum.id ? (
+            <SingleAlbum album={this.state.selectedAlbum} />
+          ) : (
+            <AllAlbums
+              albums={this.state.albums}
+              toSelectAlbum={this.handleClick}
+            />
+          )}
         </div>
+
         <Footer />
       </div>
     );
